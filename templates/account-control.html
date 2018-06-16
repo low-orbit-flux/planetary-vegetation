@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Planetary Vegetation</title>
+    <link rel="stylesheet" type="text/css" href="static/my-theme.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+<h1>Planetary Vegetation - Account Control</h1>
+
+<!--
+<h3>Create New Database:</h3>
+<form action="/database" method="post">
+    DB Name: <input type="text" name="dbname">
+    <input type="image" src="static/new.png" alt="Submit">
+</form>
+-->
+
+<h3>Account List:</h3>
+
+
+{% if ac %}
+  {{ ac | safe }}
+{% else %}
+  No Accounts
+{% endif %}
+
+
+</body>
+</html>

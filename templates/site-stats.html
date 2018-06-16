@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Planetary Vegetation</title>
+    <link rel="stylesheet" type="text/css" href="static/my-theme.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+<h1>Planetary Vegetation - Site Stats</h1>
+
+
+<h3>Sites:</h3>
+
+{% if page_data %}
+  {{ page_data | safe }}
+{% else %}
+  No Sites
+{% endif %}
+
+</body>
+</html>

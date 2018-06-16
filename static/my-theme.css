@@ -1,0 +1,27 @@
+
+
+body {
+    background-image: url("blue.png");
+}
+
+form {
+    display: inline;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th {
+    background-color: #0033ff
+}
+
+tr {
+    background-color: #0077ff
+}
+
+tr:hover {background-color: #00ff00}
