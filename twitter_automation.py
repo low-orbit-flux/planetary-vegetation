@@ -12,6 +12,7 @@ import os
 sys.path.append(os.path.abspath("/home/user1/Desktop"))
 #import boulder_valley
 from pymongo import MongoClient
+from bson.objectid import ObjectId
 
 
 config = {}                 # global configs read from config file
@@ -44,10 +45,10 @@ def auth(user_info):
     return twitter
 
 
-def getStats(twitterObj,user=""):
-    followers = twitter_util.getFollowers(user=user, twitterObj=twitterObj)
-    friends = twitter_util.getFriends(user=user, twitterObj=twitterObj)
-    return followers, friends
+def get_stats(twitterObj, user_info):
+    followers = get_followers(user=user_info["username"], twitterObj=twitterObj)
+    friends = get_friends(user=user_info["username"], twitterObj=twitterObj)
+    return len(followers), len(friends)
 
 
 def autoFollow(twitterObj,user=""):
@@ -59,14 +60,14 @@ def autoFollow(twitterObj,user=""):
             time.sleep(67)
 
 
-def getFollowers(twitterObj, user="" ):
+def get_followers(twitterObj, user="" ):
     followers = twitterObj.followers.ids(screen_name=user)      #GET followers/ids     # get followers
     if followers["next_cursor"] != 0:
         print "\n\n\n\nWARNING - more followers exist, update code to handle these\n\n\n\n"
     return followers["ids"]
 
 
-def getFriends(twitterObj, user=""):
+def get_friends(twitterObj, user=""):
     friends = twitterObj.friends.ids(screen_name=user)      #GET friends/ids     # get friends
     if friends["next_cursor"] != 0:
         print "\n\n\n\nWARNING - more friends exist, update code to handle these\n\n\n\n"
@@ -137,17 +138,16 @@ def list_accounts():
     client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
     db = client.planetaryVegetation
     accounts = db.accounts.find()
-    print(accounts)
+    for i in accounts:
+        print(i)
 
 
 def get_account_info(id):
-    """
-    select user by name
-
-    :param id:
-    :return:
-    """
-    pass
+    obj_id = ObjectId(id)
+    client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+    db = client.planetaryVegetation
+    account = db.accounts.find_one({"_id": obj_id})
+    return account
 
 
 def usage():
@@ -156,6 +156,8 @@ def usage():
         twitter_automation.py [list_accounts] 
         
         twitter_automation.py [add_account] [account fields ....]
+        
+        twitter_automation.py [stats] [_id] 
         
         
         
@@ -187,9 +189,18 @@ if __name__ == "__main__":
             add_account(sys.argv[2:])
         else:
             usage()
-    if len(sys.argv) == 13:
+    if len(sys.argv) == 2:
         if sys.argv[1] == "list_accounts":
             list_accounts()
+
+    if len(sys.argv) == 3:
+        if sys.argv[1] == "stats":
+            account = get_account_info(sys.argv[2])
+            twitter1 = auth(account)
+            data = get_stats(twitter1, account)
+            print()
+            print("followers: " + str(data[0]))
+            print("friends: " + str(data[1]))
 
     else:
         usage()
