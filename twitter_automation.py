@@ -8,11 +8,21 @@ import datetime
 import json
 import sys
 import os
-import twitter_util
-import FeedSource
+#import FeedSource
 sys.path.append(os.path.abspath("/home/user1/Desktop"))
-import boulder_valley     
+#import boulder_valley
+from pymongo import MongoClient
 
+
+config = {}                 # global configs read from config file
+
+
+def load_configs():
+    if os.path.exists("main.config"):
+        f = open("main.config", "r")
+        config_data = f.read()
+        f.close()
+        config.update(json.loads(config_data))
 
 
 """
@@ -24,28 +34,13 @@ def showMetricsFromDB():
 
 """
 
-def readCreds():
-    f = open('./creds/creds.json', 'r')      # read them in from saved status file
-    data = f.read()
-    creds = json.loads(data)
-    f.close()
-    return creds
 
+def auth(user_info):
+    #if not os.path.exists(MY_TWITTER_CREDS):
+    #    oauth_dance("My App Namexxx", CONSUMER_KEY, CONSUMER_SECRET, MY_TWITTER_CREDS)
 
-def auth(user=""):
-    creds = readCreds()
-    CONSUMER_SECRET = creds[user]["CONSUMER_SECRET"]
-    CONSUMER_KEY = creds[user]["CONSUMER_KEY"]
-
-    if not os.path.exists('./creds'):
-        os.mkdir('./creds')
-
-    MY_TWITTER_CREDS = os.path.expanduser('./creds/' + user + '.token')
-    if not os.path.exists(MY_TWITTER_CREDS):
-        oauth_dance("My App Namexxx", CONSUMER_KEY, CONSUMER_SECRET, MY_TWITTER_CREDS)
-
-    oauth_token, oauth_secret = read_token_file(MY_TWITTER_CREDS)
-    twitter = Twitter(auth=OAuth(oauth_token, oauth_secret, CONSUMER_KEY, CONSUMER_SECRET))
+    twitter = Twitter(auth=OAuth(user_info["creds"]["accessToken"], user_info["creds"]["accessTokenSecret"],
+                                 user_info["creds"]["consumerKey"], user_info["creds"]["consumerSecret"]))
     return twitter
 
 
@@ -98,59 +93,122 @@ def load_db_all():
     return results
 
 
-def plot_data(data_file, graph_outpout_file, start_date, stop_date ):
-    gnuplot_script = ' '.join((
-    "set title \"Followers over time\"\n",
-    "set xlabel \"Date / Time\"\n",
-    "set ylabel \"Followers\"\n",
-    "set term png\n",
-    "set output \"" + graph_outpout_file + "\"\n", 
-    "set xdata time\n",
-    "set timefmt \"%Y-%m-%d %H:%M:%S\"\n",
-    "set format x \"%m-%d\"\n", 
-    "set xrange [\"" + start_date + "\":\"" + stop_date + "\"] \n", 
-    "set datafile separator \",\"\n",
-    "set object 1 rectangle from screen 0,0 to screen 1,1 fillcolor rgb\"#483D8B\" behind\n",  
-    "plot '" + data_file + "' using 1:2 with lines linecolor rgb \"#00FF00\" \n" 
-    ))
-    f = open('gnuplot_script_tmp.txt', 'w')
-    f.write(gnuplot_script)
-    f.close()
-    p = subprocess.Popen("gnuplot gnuplot_script_tmp.txt", shell = True)
-    os.waitpid(p.pid, 0)
-    os.remove('gnuplot_script_tmp.txt')
+def add_account(a):
+
+    print a
+    """
+    just pass all of these things in order:
+
+    username
+    password
+    email
+    fname
+    lname
+    vertical
+    notes
+    consumerKey
+    consumerSecret
+    accessToken
+    accessTokenSecret
+    """
 
 
-def graph_followers(data_file, report_file, graph_outpout_file, acct_id):
-    cursor.execute("SELECT twitter_metrics.date, twitter_accounts.first_name, twitter_accounts.last_name, twitter_metrics.following, twitter_metrics.followers from twitter_accounts LEFT JOIN twitter_metrics ON twitter_metrics.twitter_acct=twitter_accounts.ID where twitter_accounts.ID=" + str(acct_id))
-    results = []
-    f = open(data_file, 'w')
-    for i in cursor:
-        results.append(i)
-        f.write(str(i[0]) + "," + i[4] + "\n")
-    f.close()
-    f = open(report_file, 'a')
-    f.write( "<h1>" + results[-1][1] + " " + results[-1][2] + "</h1>" )
-    f.write( "Following: " + results[-1][3] + "<br>")
-    f.write( "Followers: <b>" + results[-1][4] + "</b><br>" )
-    f.write( "<img src=\"" + graph_outpout_file + "\" >" )
-    f.close()
+    account = {
+    "username": a[0],
+    "password": a[1],
+    "email": a[2],
+    "fname": a[3],
+    "lname": a[4],
+    "vertical": a[5],
+    "notes": a[6],
+    "creds": {
+        "consumerKey": a[7],
+        "consumerSecret": a[8],
+        "accessToken": a[9],
+        "accessTokenSecret": a[10]}}
+
+    client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+    db = client.planetaryVegetation
+    accounts = db.accounts
+    accounts.insert_one(account)
+
+
+def list_accounts():
+    client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+    db = client.planetaryVegetation
+    accounts = db.accounts.find()
+    print(accounts)
+
+
+def get_account_info(id):
+    """
+    select user by name
+
+    :param id:
+    :return:
+    """
+    pass
+
+
+def usage():
+    output = """
+    Usage:
+        twitter_automation.py [list_accounts] 
         
+        twitter_automation.py [add_account] [account fields ....]
+        
+        
+        
+        - watch out for special characters, you probably don't want to do this from the CLI
+                
+        Account fields:
+                 username
+                 password
+                 email
+                 fname
+                 lname
+                 vertical
+                 notes
+                 consumerKey
+                 consumerSecret
+                 accessToken
+                 accessTokenSecret
+        """
+    print output
 
-if sys.argv[1] == "update":
-    results = load_db_all()
-    print results
 
+if __name__ == "__main__":
 
-if sys.argv[1] == "get-feeds":
-    twitter1 = auth("xxxxxxxx")
-    fs = FeedSource.FeedSource(twitterobj=twitter1, social_media_type="twitter", feed_topic="tech", user="xxxxxxxxxxxx", maxRuns=1, sleepTimeP=30)
-    fs.getFeeds()
+    load_configs()
 
-if sys.argv[1] == "run-feeds":
-    twitter1 = auth("xxxxxxxxx")
-    fs = FeedSource.FeedSource(twitterobj=twitter1, social_media_type="twitter", feed_topic="tech", user="xxxxxxxxxxxx", maxRuns=50, sleepTimeP=14400)  # every 2 hours - 14400
-    fs.runFeed()
+    if len(sys.argv) == 13:
 
+        if sys.argv[1] == "add_account":
+            add_account(sys.argv[2:])
+        else:
+            usage()
+    if len(sys.argv) == 13:
+        if sys.argv[1] == "list_accounts":
+            list_accounts()
+
+    else:
+        usage()
+
+        """
+    
+        if sys.argv[1] == "update":
+            results = load_db_all()
+            print results
+
+        if sys.argv[1] == "get-feeds":
+            twitter1 = auth("xxxxxxxx")
+            fs = FeedSource.FeedSource(twitterobj=twitter1, social_media_type="twitter", feed_topic="tech", user="xxxxxxxxxxxx", maxRuns=1, sleepTimeP=30)
+            fs.getFeeds()
+
+        if sys.argv[1] == "run-feeds":
+            twitter1 = auth("xxxxxxxxx")
+            fs = FeedSource.FeedSource(twitterobj=twitter1, social_media_type="twitter", feed_topic="tech", user="xxxxxxxxxxxx", maxRuns=50, sleepTimeP=14400)  # every 2 hours - 14400
+            fs.runFeed()
+        """
 
 
