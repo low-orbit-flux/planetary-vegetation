@@ -51,6 +51,37 @@ def get_stats(twitterObj, user_info):
     return len(followers), len(friends)
 
 
+def get_stats_db(user_info):
+    client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+    db = client.planetaryVegetation
+    friends = db.twitterUsers.find({"accountID": user_info["_id"], "friend.status": "started"})
+    followers = db.twitterUsers.find({"accountID": user_info["_id"], "follow.status": "started"})
+    follow_backs = db.twitterUsers.find({"accountID": user_info["_id"], "friend.status": "started", "follow.status": "started"})
+    friends_not_following = db.twitterUsers.find(
+        {"accountID": user_info["_id"], "friend.status": "started", "follow.status": {"$ne": "started"}})
+
+    return friends.count(), followers.count(), follow_backs.count(), friends_not_following.count()
+
+def log_stats_to_db(user_info):
+    data = get_stats_db(user_info)
+
+    client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+    db = client.planetaryVegetation
+    ts = db.twitterStats
+
+    log_this = {"accountID": user_info["_id"],
+                "friends": data[0], "followers": data[1],
+                "follow_backs": data[2], "friendsNotFollowing": data[3],
+                "timestamp": datetime.datetime.utcnow()}
+    ts.insert_one(log_this)
+    print("adding stats")
+
+def show_logged_stats(user_info):
+    client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+    db = client.planetaryVegetation
+    data = db.twitterStats.find({"accountID": user_info["_id"]})
+    return data
+
 def autoFollow(twitterObj,user=""):
     followers, friends = getStats(twitterObj, user)
     for f1 in followers:
@@ -77,7 +108,7 @@ def get_friends(twitterObj, user=""):
 def load_db(twitter_user, twitter_id):
     auth_object1 = auth(user=twitter_user)             # get auth object for this user
     followers, friends = getStats(auth_object1, twitter_user)
-    #print twitter_user + "    Followers: " + str(len(followers)) + "       Friends: " + str(len(friends))
+    # print twitter_user + "    Followers: " + str(len(followers)) + "       Friends: " + str(len(friends))
     time1 = time.strftime("%Y-%m-%d %H:%M:%S")
     params = [('varchar', str(len(friends))), ('varchar', str(len(followers))), ('varchar', '0'), ('int', twitter_id), ('varchar', time1)]
     db_insert_status = boulder_valley.my_crud.insert_data("127.0.0.1", "root", "xxxxxxxxx", "campaigns", 'twitter_metrics', params)
@@ -92,6 +123,80 @@ def load_db_all():
 
         results = results + str(i[0]) + " " + i[1] + " followers: " + status[0] + "following: " + status[1] + "\n"
     return results
+
+
+def store_existing_users(twitterObj, user_info):
+    """
+    store existing friends and followers in the database
+    """
+
+    followers = get_followers(user=user_info["username"], twitterObj=twitterObj)
+    friends = get_friends(user=user_info["username"], twitterObj=twitterObj)
+
+    client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+    db = client.planetaryVegetation
+    tu = db.twitterUsers
+
+    for i in followers:
+        from_db = db.twitterUsers.find_one({"accountID": user_info["_id"], "twitterID": i})
+        if not from_db:        # user not stored yet
+            user = {"accountID": user_info["_id"], "twitterID": i, "follow": {"status": "started", "startDate": datetime.datetime.utcnow()}}
+            tu.insert_one(user)
+            print("adding follower")
+        else:                           # user already stored
+            if "follow" in from_db:
+                if "status" in from_db["follow"]:
+                    if from_db["follow"]["status"] != "started":
+                        tu.update({"_id": from_db["_id"]}, {"$set": {"follow.status": "started",
+                                                                     "follow.startDate": datetime.datetime.utcnow()}},
+                                  upsert=False)
+                        print("updating follower")
+                    else:
+                        pass    # don't need to do anything, already set
+                else:
+                    tu.update({"_id": from_db["_id"]}, {"$set": {"follow.status": "started",
+                                                                 "follow.startDate": datetime.datetime.utcnow()}},
+                              upsert=False)
+                    print("updating follower")
+            else:
+                tu.update({"_id": from_db["_id"]}, {"$set": {"follow.status": "started",
+                                                             "follow.startDate": datetime.datetime.utcnow()}},
+                          upsert=False)
+                print("updating follower")
+
+    for i in friends:
+        from_db = db.twitterUsers.find_one({"accountID": user_info["_id"], "twitterID": i})
+        if not from_db:
+            user = {"accountID": user_info["_id"], "twitterID": i, "friend": {"status": "started", "startDate": datetime.datetime.utcnow()}}
+            tu.insert_one(user)
+            print("adding friend")
+        else:
+            """
+                - make sure the fields exist, if not, add them and set to 'friend'
+                  ( they might not exist, could just be a follower )
+                - make sure the field is set to friend, if not, set it
+            """
+            if "friend" in from_db:
+                if "status" in from_db["friend"]:
+                    if from_db["friend"]["status"] != "started":
+                        tu.update({"_id": from_db["_id"]},
+                                  {"$set": {"friend.status": "started",
+                                            "friend.startDate": datetime.datetime.utcnow()}}, upsert=False)
+                        print("updating friend")
+                    else:
+                        pass  # don't need to do anything, already set
+                else:
+                    tu.update({"_id": from_db["_id"]},
+                              {"$set": {"friend.status": "started", "friend.startDate": datetime.datetime.utcnow()}},
+                              upsert=False)
+                    print("updating friend")
+            else:
+                tu.update({"_id": from_db["_id"]},
+                          {"$set": {"friend.status": "started", "friend.startDate": datetime.datetime.utcnow()}},
+                          upsert=False)
+                print("updating friend")
+
+    return 0
 
 
 def add_account(a):
@@ -157,7 +262,20 @@ def usage():
         
         twitter_automation.py [add_account] [account fields ....]
         
-        twitter_automation.py [stats] [_id] 
+        twitter_automation.py [stats] [_id]    # show followers and friends, live query twitter account
+                                               # _id is the id from the account collection 
+                                               
+        twitter_automation.py [stats_db] [_id] # show followers and friends, query DB, more info and stats
+                                               # _id is the id from the account collection                                                                           
+                                               
+        twitter_automation.py [log_stats] [_id] # count followers/friends from DB, log them to a DB time series table
+                                                # _id is the id from the account collection
+                                                
+        twitter_automation.py [show_logged_stats] [_id] # show stats from DB time series for this account
+                                               # _id is the id from the account collection                                                                          
+        
+        twitter_automation.py [store] [_id]    # store existing followers and friends
+                                               # _id is the id from the account collection 
         
         
         
@@ -189,18 +307,41 @@ if __name__ == "__main__":
             add_account(sys.argv[2:])
         else:
             usage()
-    if len(sys.argv) == 2:
+    elif len(sys.argv) == 2:
         if sys.argv[1] == "list_accounts":
             list_accounts()
 
-    if len(sys.argv) == 3:
+    elif len(sys.argv) == 3:
         if sys.argv[1] == "stats":
             account = get_account_info(sys.argv[2])
             twitter1 = auth(account)
             data = get_stats(twitter1, account)
-            print()
             print("followers: " + str(data[0]))
             print("friends: " + str(data[1]))
+        elif sys.argv[1] == "stats_db":
+            account = get_account_info(sys.argv[2])
+            data = get_stats_db(account)
+            print("friends: " + str(data[0]))
+            print("followers: " + str(data[1]))
+            print("follow backs: " + str(data[2]))
+            print("friends not following: " + str(data[3]))
+        elif sys.argv[1] == "log_stats":
+            account = get_account_info(sys.argv[2])
+            log_stats_to_db(account)
+
+        elif sys.argv[1] == "show_logged_stats":
+            account = get_account_info(sys.argv[2])
+            data = show_logged_stats(account)
+            for i in data:
+                print(i)
+
+
+        elif sys.argv[1] == "store":
+            account = get_account_info(sys.argv[2])
+            twitter1 = auth(account)
+            store_existing_users(twitter1, account)
+        else:
+            usage()
 
     else:
         usage()
