@@ -62,6 +62,7 @@ def get_stats_db(user_info):
 
     return friends.count(), followers.count(), follow_backs.count(), friends_not_following.count()
 
+
 def log_stats_to_db(user_info):
     data = get_stats_db(user_info)
 
@@ -76,11 +77,40 @@ def log_stats_to_db(user_info):
     ts.insert_one(log_this)
     print("adding stats")
 
+
 def show_logged_stats(user_info):
     client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
     db = client.planetaryVegetation
     data = db.twitterStats.find({"accountID": user_info["_id"]})
     return data
+
+
+def unfollow(user_info, twitterObj):
+    client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+    db = client.planetaryVegetation
+    friends_not_following = db.twitterUsers.find(
+        {"accountID": user_info["_id"], "friend.status": "started", "follow.status": {"$ne": "started"}})
+
+    HARDCODED_UNFOLLOW_LIMIT = 75
+    c = 0
+    for i in friends_not_following:
+        print(i["twitterID"])
+        twitterObj.friendships.destroy(user_id=i["twitterID"])
+        time.sleep(1200)       # 1200 is every 20 minutes
+        c += 1
+        if c == HARDCODED_UNFOLLOW_LIMIT:
+            break
+
+
+def find_friends(user_info, twitterObj, topic):
+    results = twitterObj.search.tweets(q='%23' + topic)
+    print(results["statuses"][0]["user"]["id"])
+    print(results["statuses"][0]["user"]["name"])
+    print(results["statuses"][0]["user"]["screen_name"])
+    print(results["statuses"][0]["user"]["protected"])
+    print(results["statuses"][0]["user"]["followers_count"])
+    print(results["statuses"][0]["user"]["friends_count"])
+
 
 def autoFollow(twitterObj,user=""):
     followers, friends = getStats(twitterObj, user)
@@ -220,18 +250,18 @@ def add_account(a):
 
 
     account = {
-    "username": a[0],
-    "password": a[1],
-    "email": a[2],
-    "fname": a[3],
-    "lname": a[4],
-    "vertical": a[5],
-    "notes": a[6],
-    "creds": {
-        "consumerKey": a[7],
-        "consumerSecret": a[8],
-        "accessToken": a[9],
-        "accessTokenSecret": a[10]}}
+        "username": a[0],
+        "password": a[1],
+        "email": a[2],
+        "fname": a[3],
+        "lname": a[4],
+        "vertical": a[5],
+        "notes": a[6],
+        "creds": {
+            "consumerKey": a[7],
+            "consumerSecret": a[8],
+            "accessToken": a[9],
+            "accessTokenSecret": a[10]}}
 
     client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
     db = client.planetaryVegetation
@@ -276,7 +306,13 @@ def usage():
         
         twitter_automation.py [store] [_id]    # store existing followers and friends
                                                # _id is the id from the account collection 
-        
+              
+        twitter_automation.py [unfollow] [_id] # SLOWLY unfollow - use with caution
+                                               # _id is the id from the account collection
+                                               
+        twitter_automation.py [find_friends] [_id] [keyword]  # find friends based on keyword
+                                                     # _id is the id from the account collection  
+                                               
         
         
         - watch out for special characters, you probably don't want to do this from the CLI
@@ -335,14 +371,25 @@ if __name__ == "__main__":
             for i in data:
                 print(i)
 
-
         elif sys.argv[1] == "store":
             account = get_account_info(sys.argv[2])
             twitter1 = auth(account)
             store_existing_users(twitter1, account)
+
+        elif sys.argv[1] == "unfollow":
+            account = get_account_info(sys.argv[2])
+            twitter1 = auth(account)
+            unfollow(account, twitter1)
+
         else:
             usage()
-
+    elif len(sys.argv) == 4:
+        if sys.argv[1] == "find_friends":
+            account = get_account_info(sys.argv[2])
+            twitter1 = auth(account)
+            find_friends(account, twitter1, sys.argv[3])
+        else:
+            usage()
     else:
         usage()
 
