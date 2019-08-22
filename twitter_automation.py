@@ -26,16 +26,6 @@ def load_configs():
         config.update(json.loads(config_data))
 
 
-"""
-def showMetricsFromDB():
-    cursor.execute("SELECT twitter_metrics.date, twitter_accounts.first_name, twitter_accounts.last_name, twitter_metrics.following, twitter_metrics.followers, twitter_metrics.tweets  from twitter_accounts LEFT JOIN twitter_metrics ON twitter_metrics.twitter_acct=twitter_accounts.ID ")
-    print( "date, name, follwing, followers, tweets")
-    for i in cursor:
-        print i
-
-"""
-
-
 def auth(user_info):
     #if not os.path.exists(MY_TWITTER_CREDS):
     #    oauth_dance("My App Namexxx", CONSUMER_KEY, CONSUMER_SECRET, MY_TWITTER_CREDS)
@@ -103,22 +93,39 @@ def unfollow(user_info, twitterObj):
 
 
 def find_friends(user_info, twitterObj, topic):
-    results = twitterObj.search.tweets(q='%23' + topic)
-    print(results["statuses"][0]["user"]["id"])
-    print(results["statuses"][0]["user"]["name"])
-    print(results["statuses"][0]["user"]["screen_name"])
-    print(results["statuses"][0]["user"]["protected"])
-    print(results["statuses"][0]["user"]["followers_count"])
-    print(results["statuses"][0]["user"]["friends_count"])
+    good_to_follow = []
+    try:
+        client = MongoClient(config["mongodb"]["host"], int(config["mongodb"]["port"]))
+        db = client.planetaryVegetation
+
+        results = twitterObj.search.tweets(q=topic, count=100)
+        print("[ID] [name] [screen_name] [protected] [followers] [friends]")
+        print(40 * "=")
+        for i in results["statuses"]:
+            if not i["user"]["protected"]:
+                # need to have at least 500 friends ( they follow people )
+                # need to have at least 50 followers ( at lest some people follow them )
+                if i["user"]["followers_count"] >= 50 and i["user"]["friends_count"] >= 500:
+                    # DB Check - if already following, unfollowed, or following me
+                    from_db = db.twitterUsers.find_one({"accountID": user_info["_id"], "twitterID": i["user"]["id"]})
+                    if not from_db:
+                        if i["user"]["id"] not in good_to_follow:   # don't log duplicates
+                            print(str(i["user"]["id"]) + " [" + i["user"]["name"] + "] [" + i["user"][
+                                "screen_name"] + "] "
+                                  + str(i["user"]["protected"]) + " " + str(i["user"]["followers_count"]) + " "
+                                  + str(i["user"]["friends_count"]))
+                            good_to_follow.append(i["user"]["id"])
+    except:
+        pass
+    return good_to_follow
 
 
-def autoFollow(twitterObj,user=""):
-    followers, friends = getStats(twitterObj, user)
-    for f1 in followers:
-        if f1 not in friends:
-            print f1
-            twitterObj.friendships.create(user_id=f1, follow="true")
-            time.sleep(67)
+def auto_follow(user_info, twitterObj, topic):
+    friends_to_add = find_friends(user_info, twitterObj, topic)
+    for i in friends_to_add:
+        print("Adding: " + str(i))
+        #twitterObj.friendships.create(user_id=i, follow="true")
+        time.sleep(900)
 
 
 def get_followers(twitterObj, user="" ):
@@ -311,7 +318,10 @@ def usage():
                                                # _id is the id from the account collection
                                                
         twitter_automation.py [find_friends] [_id] [keyword]  # find friends based on keyword
-                                                     # _id is the id from the account collection  
+                                                              # _id is the id from the account collection
+                                                     
+        twitter_automation.py [auto_follow] [_id] [keyword]  # same as find friends except that it actually follows them
+                                                             # _id is the id from the account collection                                                         
                                                
         
         
@@ -388,6 +398,10 @@ if __name__ == "__main__":
             account = get_account_info(sys.argv[2])
             twitter1 = auth(account)
             find_friends(account, twitter1, sys.argv[3])
+        elif sys.argv[1] == "auto_follow":
+            account = get_account_info(sys.argv[2])
+            twitter1 = auth(account)
+            auto_follow(account, twitter1, sys.argv[3])
         else:
             usage()
     else:
