@@ -3,6 +3,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait # available since 2.4.0
 from selenium.webdriver.support import expected_conditions as EC # available since 2.26.0
 import time
+import re
 
 
 driver = webdriver.Firefox()
@@ -45,11 +46,18 @@ def login():
         pass
 
 def stats():
+    following = "0"
+    followers = "0"
     driver.get("https://twitter.com/Stegosa99042135")
     time.sleep(5)
     #followers = driver.find_element_by_link_text("Followers")
-    followers = driver.find_element_by_xpath("/html/body/div")
-    print(followers)
+    data1 = driver.find_element_by_xpath("/html/body/div")
+    m1 = re.search(data1.text, "\n(\d+) Following\n(\d)+Followers\n")
+    if m1:
+        following = m1.group(1)
+        followers = m1.group(2)
+    print("Following: " + following)
+    print("Followers: " + followers)
 
 read_creds()
 login()
