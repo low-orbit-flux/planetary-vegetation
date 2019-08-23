@@ -1,0 +1,115 @@
+
+
+- need support for mongodb authentication ( user, password )
+- fix this:
+    "WARNING - more followers exist, update code to handle these"
+
+
+
+
+- BUG - not showing people I unfollowed
+
+- get content feeds working
+- use hash tags in the content feed
+
+- add users, should use mutliple keywords and zip the lists together
+
+- need long running follow/unfollow jobs
+
+- more twitter accounts
+
+
+
+
+store existing followers
+    - check if already there, update or create
+
+store existing friends
+    - check if already there, update or create
+
+unfollow query
+    -query friends who aren't followers
+        - compare date
+        - print
+
+unfollow
+    - query friends who aren't followers
+        - compare date
+        - SLOWLY loop to unfollow, cap MAX unfollows
+
+follow
+    - search for relevant people
+        - check if they are on the list already ( this will cover unfollowed people )
+        - SLOWLY Follow,  CAP Max follows
+
+
+
+
+def follow_user():
+    - check if already in twitter-users table   ( already following or unfollowed )
+    - actually follow
+        - on success add to twitter-users table with current DATE/TIME
+
+
+
+
+
+
+
+
+
+
+
+
+Cache:
+    potential   id, name         ( random unfiltered names )
+
+
+
+
+
+ISODate("2018-06-17T04:24:59.436Z")
+
+
+
+MongoDB:
+
+
+twitter-users
+    twitterID,
+    userName,
+    friend,                            # people I'm following
+        start                          # I followed
+        startDate
+        stop                           # I unfollowed
+        stopDate
+    follow                             #  users following me
+        start                          # they followed me
+        startDate
+        stop                           # they unfollowed me
+        stopDate
+
+
+
+twitter-accounts
+    username
+    password
+    email
+    fname
+    lname
+    vertical
+    notes
+    creds
+        consumerKey
+        consumerSecret
+        accessToken
+        accessTokenSecret
+
+
+
+twitter-stats
+    user object id
+    date/time
+    followers
+    friends
+    tweets

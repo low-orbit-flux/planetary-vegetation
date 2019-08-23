@@ -65,6 +65,29 @@ def search(search_term):
     x.send_keys(search_term)
     time.sleep(2)
     x.submit()
+    """
+    for each of these:
+        /html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div[1]
+        /html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div[2]
+        /html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div[3]
+
+    """
+
+    #how many can we loop???
+    #follow:
+    # link to profile ( sub element of each "article"
+
+    # /html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div[1]/div/article/div/div[2]/div[1]/div/div/a
+
+
+def follow(user_profile)
+    ##
+    ## gert user_profile page
+    element = driver.find_element_by_xpath("/html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div/div[3]/div/div/div/span/span")
+    element.click()
+    time.sleep(10)
+    ### limits on how many follows
+    ### check if they follow people first ( they follow over 500 )
 
 read_creds()
 login()
