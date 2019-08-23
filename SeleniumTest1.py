@@ -30,6 +30,7 @@ def login():
     driver.get("http://twitter.com/login")
 
     print( driver.title )
+    time.sleep(2)
     inputElement1 = driver.find_element_by_class_name("js-username-field")
     inputElement2 = driver.find_element_by_class_name("js-password-field")
     time.sleep(2)
@@ -72,15 +73,17 @@ def search(search_term):
         /html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div[3]
 
     """
+    time.sleep(5)
 
     #how many can we loop???
     #follow:
     # link to profile ( sub element of each "article"
 
-    # /html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div[1]/div/article/div/div[2]/div[1]/div/div/a
+    x = driver.find_element_by_xpath("/html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div[1]/div/article/div/div[2]/div[1]/div/div/a")
+    print("url: " + x.get_attribute('href') )
 
 
-def follow(user_profile)
+def follow(user_profile):
     ##
     ## gert user_profile page
     element = driver.find_element_by_xpath("/html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/div[1]/div/div[1]/div/div[3]/div/div/div/span/span")
