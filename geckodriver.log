@@ -1,0 +1,200 @@
+1566492175595	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.dMiDPKeddcPI"
+1566492176831	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566492176832	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566492176833	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566492176833	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566492181989	Marionette	INFO	Listening on port 34449
+1566492182037	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:7829): dconf-WARNING **: 12:43:14.804: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221566491597065%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+[Parent 7761, Gecko_IOThread] WARNING: pipe error (70): Connection reset by peer: file /build/firefox-tGfEvD/firefox-68.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1566492729890	Marionette	INFO	Stopped listening on port 34449
+1566492732653	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.1mZafluSCbIj"
+1566492734629	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566492734631	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566492734632	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566492734632	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566492745762	Marionette	INFO	Listening on port 46305
+1566492745877	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:8390): dconf-WARNING **: 12:52:36.418: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221566491597065%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1566493054901	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.ZYtS8GjUlJwI"
+1566493056587	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566493056588	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566493056588	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566493056589	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566493062963	Marionette	INFO	Listening on port 36573
+1566493063052	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:8972): dconf-WARNING **: 12:57:54.706: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221566491597065%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+console.warn: LoginRecipes: "getRecipes: falling back to a synchronous message for:" "https://twitter.com"
+JavaScript warning: resource:///modules/UrlbarView.jsm, line 123: Array.reduce is deprecated; use Array.prototype.reduce instead
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1566493530560	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.iQzRZ0rSBPzt"
+1566493532446	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566493532447	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566493532448	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566493532448	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566493538787	Marionette	INFO	Listening on port 40093
+1566493538811	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:9468): dconf-WARNING **: 13:05:47.700: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221566491597065%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.
+1566493623872	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.nZZBmRKTt9KS"
+1566493625057	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566493625058	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566493625059	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566493625059	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566493630076	Marionette	INFO	Listening on port 33599
+1566493630184	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:9638): dconf-WARNING **: 13:07:18.767: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221566491597065%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1566493714182	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.29HXnfIeTfFI"
+1566493715483	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566493715483	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566493715484	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566493715484	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566493720653	Marionette	INFO	Listening on port 41237
+1566493720725	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221566491597065%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+
+(/usr/lib/firefox/firefox:9849): dconf-WARNING **: 13:09:02.743: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+[Parent 9574, Gecko_IOThread] WARNING: pipe error (97): Connection reset by peer: file /build/firefox-tGfEvD/firefox-68.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[Parent 9574, Gecko_IOThread] WARNING: pipe error (113): Connection reset by peer: file /build/firefox-tGfEvD/firefox-68.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1566493785337	Marionette	INFO	Stopped listening on port 33599
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x53000D,name=PHttpChannel::Msg_RemoveCorsPreflightCacheEntry) Closed channel: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x530005,name=PHttpChannel::Msg_Cancel) Closed channel: cannot send/recv
+
+
+###!!! [Child][MessageChannel] Error: (msgtype=0x530005,name=PHttpChannel::Msg_Cancel) Closed channel: cannot send/recv
+
+[Parent 9777, Gecko_IOThread] WARNING: pipe error (148): Connection reset by peer: file /build/firefox-tGfEvD/firefox-68.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+1566493791920	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.auydGeOnneTc"
+1566493793184	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566493793184	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566493793185	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566493793185	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566493793615	Marionette	INFO	Stopped listening on port 41237
+1566493798518	Marionette	INFO	Listening on port 41327
+1566493798563	Marionette	WARN	TLS certificate errors will be ignored for this session
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221566491597065%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+
+(/usr/lib/firefox/firefox:10007): dconf-WARNING **: 13:10:31.937: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+1566493848566	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile.EDZYpuxkj9aH"
+1566493850041	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566493850042	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566493850042	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566493850043	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566493850242	Marionette	INFO	Stopped listening on port 41327
+JavaScript error: resource://gre/modules/osfile/osfile_async_front.jsm, line 400: Error: OS.File has been shut down. Rejecting post to stat
+1566493855510	Marionette	INFO	Listening on port 37687
+1566493855562	Marionette	WARN	TLS certificate errors will be ignored for this session
+
+(/usr/lib/firefox/firefox:10196): dconf-WARNING **: 13:11:04.043: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221566491597065%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/inspectorActor3, type supportsHighlighters failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\nsupportsEyeDropper@resource://devtools/client/inspector/inspector.js:1055:35\nsetupToolbar@resource://devtools/client/inspector/inspector.js:1071:42\n_deferredOpen@resource://devtools/client/inspector/inspector.js:296:16\n", "resource://devtools/shared/protocol.js", 1299))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/domwalker21, type children failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\n_getVisibleChildren@resource://devtools/client/inspector/markup/markup.js:2010:24\n_updateChildren@resource://devtools/client/inspector/markup/markup.js:1929:12\n_expandContainer@resource://devtools/client/inspector/markup/markup.js:1390:17\nexpandNode@resource://devtools/client/inspector/markup/markup.js:1405:17\n_ensureNodeImported@resource://devtools/client/inspector/markup/markup.js:1382:12\nshowNode@resource://devtools/client/inspector/markup/markup.js:1361:12\n_onNewSelection@resource://devtools/client/inspector/markup/markup.js:713:25\nMarkupView@resource://devtools/client/inspector/markup/markup.js:150:8\n_onMarkupFrameLoad@resource://devtools/client/inspector/inspector.js:1481:19\n", "resource://devtools/shared/protocol.js", 1299))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/domwalker21, type children failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\n_getVisibleChildren@resource://devtools/client/inspector/markup/markup.js:2010:24\n_updateChildren@resource://devtools/client/inspector/markup/markup.js:1929:12\nimportNode@resource://devtools/client/inspector/markup/markup.js:1209:10\n_ensureNodeImported@resource://devtools/client/inspector/markup/markup.js:1381:12\nshowNode@resource://devtools/client/inspector/markup/markup.js:1361:12\n_onNewSelection@resource://devtools/client/inspector/markup/markup.js:713:25\nMarkupView@resource://devtools/client/inspector/markup/markup.js:150:8\n_onMarkupFrameLoad@resource://devtools/client/inspector/inspector.js:1481:19\n", "resource://devtools/shared/protocol.js", 1299))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/domwalker21, type children failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\n_getVisibleChildren@resource://devtools/client/inspector/markup/markup.js:2010:24\n_updateChildren@resource://devtools/client/inspector/markup/markup.js:1929:12\n_expandContainer@resource://devtools/client/inspector/markup/markup.js:1390:17\nexpandNode@resource://devtools/client/inspector/markup/markup.js:1405:17\nMarkupView@resource://devtools/client/inspector/markup/markup.js:152:10\n_onMarkupFrameLoad@resource://devtools/client/inspector/inspector.js:1481:19\n", "resource://devtools/shared/protocol.js", 1299))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/pagestyle23, type getLayout failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\nupdateBoxModel/lastRequest<@resource://devtools/client/inspector/boxmodel/box-model.js:158:51\nupdateBoxModel@resource://devtools/client/inspector/boxmodel/box-model.js:200:19\nonSidebarSelect@resource://devtools/client/inspector/boxmodel/box-model.js:397:10\nemit@resource://devtools/shared/event-emitter.js:186:24\nemit@resource://devtools/shared/event-emitter.js:267:18\nhandleSelectionChange@resource://devtools/client/inspector/toolsidebar.js:318:10\naddAllQueuedTabs/<@resource://devtools/client/shared/components/tabs/TabBar.js:167:20\ncallCallback@resource://devtools/client/shared/vendor/react-dom.js:8540:12\ncommitUpdateQueue@resource://devtools/client/shared/vendor/react-dom.js:8573:7\ncommitLifeCycles@resource://devtools/client/shared/vendor/react-dom.js:11407:11\ncommitAllLifeCycles@resource://devtools/client/shared/vendor/react-dom.js:12348:7\ncommitRoot@resource://devtools/client/shared/vendor/react-dom.js:12492:9\ncompleteRoot@resource://devtools/client/shared/vendor/react-dom.js:13417:34\nperformWorkOnRoot@resource://devtools/client/shared/vendor/react-dom.js:13362:9\nperformWork@resource://devtools/client/shared/vendor/react-dom.js:13281:7\nperformSyncWork@resource://devtools/client/shared/vendor/react-dom.js:13253:3\nrequestWork@resource://devtools/client/shared/vendor/react-dom.js:13153:5\nscheduleWork$1@resource://devtools/client/shared/vendor/react-dom.js:13022:11\nenqueueSetState@resource://devtools/client/shared/vendor/react-dom.js:8845:5\nComponent.prototype.setState@resource://devtools/client/shared/vendor/react.js:406:16\naddAllQueuedTabs@resource://devtools/client/shared/components/tabs/TabBar.js:165:10\naddAllQueuedTabs@resource://devtools/client/inspector/toolsidebar.js:91:18\nsetupSidebar@resource://devtools/client/inspector/inspector.js:959:18\n", "resource://devtools/shared/protocol.js", 1299))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/pagestyle23, type getApplied failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\ngetApplied@resource://devtools/shared/fronts/styles.js:65:29\npopulate@resource://devtools/client/inspector/rules/models/element-style.js:119:38\n_populate@resource://devtools/client/inspector/rules/rules.js:967:31\nselectElement/<@resource://devtools/client/inspector/rules/rules.js:876:21\nprocess@resource://gre/modules/Promise-backend.js:923:38\nwalkerLoop@resource://gre/modules/Promise-backend.js:807:29\nscheduleWalkerLoop/<@resource://gre/modules/Promise-backend.js:743:14\n", "resource://devtools/shared/protocol.js", 1299))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/pagestyle23, type getApplied failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\ngetApplied@resource://devtools/shared/fronts/styles.js:65:29\npopulate@resource://devtools/client/inspector/rules/models/element-style.js:119:38\n_populate@resource://devtools/client/inspector/rules/rules.js:967:31\nrefreshPanel/<@resource://devtools/client/inspector/rules/rules.js:916:19\nprocess@resource://gre/modules/Promise-backend.js:923:38\nwalkerLoop@resource://gre/modules/Promise-backend.js:807:29\nscheduleWalkerLoop/<@resource://gre/modules/Promise-backend.js:743:14\n", "resource://devtools/shared/protocol.js", 1299))
+*************************
+A coding exception was thrown in a Promise resolution callback.
+See https://developer.mozilla.org/Mozilla/JavaScript_code_modules/Promise.jsm/Promise
+
+Full message: TypeError: selection is null
+Full stack: _isContainerSelected@resource://devtools/client/inspector/markup/markup.js:597:5
+_markContainerAsSelected@resource://devtools/client/inspector/markup/markup.js:1768:15
+_onNewSelection/onShow<@resource://devtools/client/inspector/markup/markup.js:722:14
+process@resource://gre/modules/Promise-backend.js:923:38
+walkerLoop@resource://gre/modules/Promise-backend.js:807:29
+scheduleWalkerLoop/<@resource://gre/modules/Promise-backend.js:743:14
+
+*************************
+console.error: (new TypeError("selection is null", "resource://devtools/client/inspector/markup/markup.js", 597))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/pagestyle23, type getApplied failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\ngetApplied@resource://devtools/shared/fronts/styles.js:65:29\npopulate@resource://devtools/client/inspector/rules/models/element-style.js:119:38\n_populate@resource://devtools/client/inspector/rules/rules.js:967:31\nselectElement/<@resource://devtools/client/inspector/rules/rules.js:876:21\nprocess@resource://gre/modules/Promise-backend.js:923:38\nwalkerLoop@resource://gre/modules/Promise-backend.js:807:29\nscheduleWalkerLoop/<@resource://gre/modules/Promise-backend.js:743:14\n", "resource://devtools/shared/protocol.js", 1299))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/pagestyle23, type getApplied failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\ngetApplied@resource://devtools/shared/fronts/styles.js:65:29\npopulate@resource://devtools/client/inspector/rules/models/element-style.js:119:38\n_populate@resource://devtools/client/inspector/rules/rules.js:967:31\nrefreshPanel/<@resource://devtools/client/inspector/rules/rules.js:916:19\nprocess@resource://gre/modules/Promise-backend.js:923:38\nwalkerLoop@resource://gre/modules/Promise-backend.js:807:29\nscheduleWalkerLoop/<@resource://gre/modules/Promise-backend.js:743:14\n", "resource://devtools/shared/protocol.js", 1299))
+console.error: (new TypeError("selection is null", "resource://devtools/client/inspector/inspector.js", 1244))
+console.error: (new Error("Connection closed, pending request to server1.conn0.child1/pagestyle23, type getApplied failed\n\nRequest stack:\nrequest@resource://devtools/shared/protocol.js:1386:14\ngenerateRequestMethods/</frontProto[name]@resource://devtools/shared/protocol.js:1510:19\ngetApplied@resource://devtools/shared/fronts/styles.js:65:29\npopulate@resource://devtools/client/inspector/rules/models/element-style.js:119:38\n_populate@resource://devtools/client/inspector/rules/rules.js:967:31\nselectElement/<@resource://devtools/client/inspector/rules/rules.js:876:21\nprocess@resource://gre/modules/Promise-backend.js:923:38\nwalkerLoop@resource://gre/modules/Promise-backend.js:807:29\nscheduleWalkerLoop/<@resource://gre/modules/Promise-backend.js:743:14\n", "resource://devtools/shared/protocol.js", 1299))
+console.warn: "Error while detaching the thread front: 'detach' request packet to 'server1.conn0.child1/context18' can't be sent as the connection is closed."
+Exiting due to channel error.
+[Child 10252, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-tGfEvD/firefox-68.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+[Child 10196, Chrome_ChildThread] WARNING: pipe error (41): Connection reset by peer: file /build/firefox-tGfEvD/firefox-68.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+[GFX1-]: Receive IPC close with reason=AbnormalShutdown
+[Child 10196, Chrome_ChildThread] WARNING: pipe error (3): Connection reset by peer: file /build/firefox-tGfEvD/firefox-68.0.1+build1/ipc/chromium/src/chrome/common/ipc_channel_posix.cc, line 358
+Exiting due to channel error.
+Exiting due to channel error.

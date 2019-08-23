@@ -59,11 +59,19 @@ def stats():
     print("Following: " + following)
     print("Followers: " + followers)
 
+
+def search(search_term):
+    x = driver.find_element_by_xpath("/html/body/div/div/div/div/main/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div/form/div[1]/div/div/div[2]/input")
+    x.send_keys(search_term)
+    time.sleep(2)
+    x.submit()
+
 read_creds()
 login()
 time.sleep(2)
 stats()
 time.sleep(2)
+search("kittens")
 
 
 
