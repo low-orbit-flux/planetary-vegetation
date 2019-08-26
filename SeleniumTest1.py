@@ -62,6 +62,8 @@ def stats():
 
 
 def search(search_term):
+    links = []
+
     x = driver.find_element_by_xpath("/html/body/div/div/div/div/main/div/div[2]/div/div[2]/div/div[2]/div/div/div/div[1]/div/div/div/form/div[1]/div/div/div[2]/input")
     x.send_keys(search_term)
     time.sleep(2)
@@ -79,8 +81,21 @@ def search(search_term):
     #follow:
     # link to profile ( sub element of each "article"
 
-    x = driver.find_element_by_xpath("/html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div[1]/div/article/div/div[2]/div[1]/div/div/a")
-    print("url: " + x.get_attribute('href') )
+    article_list = "/html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/div/div/section/div/div/div/div"
+    article_author_link = "/div/article/div/div[2]/div[1]/div/div/a"
+    x = driver.find_elements_by_xpath(article_list)
+    for y in x:
+        try:
+            z1 = y.find_element_by_xpath("./" + article_author_link)
+            print(z1.get_attribute('href'))
+            links.append(z1.get_attribute('href'))
+        except:
+            print('ERROR - in search')
+            pass
+        finally:
+            pass
+    print("done search")
+    return links
 
 
 def follow(user_profile):
@@ -92,13 +107,45 @@ def follow(user_profile):
     ### limits on how many follows
     ### check if they follow people first ( they follow over 500 )
 
+
+def get_user_followers(user_profile_link):
+    """
+        !!!!!!!!!!!! needs some debugging !!!!!!!!!!!11
+    """
+    links = []
+    driver.get(user_profile_link + "/followers")
+    time.sleep(5)
+    user_list_xpath = "/html/body/div/div/div/div/main/div/div[2]/div/div[1]/div/div[2]/section/div/div/div"
+    link_xpath = ".//div[1]/div/div/div/div[2]/div/div[1]/a"
+    x = driver.find_elements_by_xpath(user_list_xpath)
+    print(x)
+    for y in x:
+        try:
+            z1 = y.findelement(link_xpath)
+            print(z1.get_attribute('href'))
+            links.append(z1.get_attribute('href'))
+        except:
+            print('ERROR - in get_user_followers()')
+            pass
+        finally:
+            pass
+    print("done getting user followers")
+    return links
+ 
+
+
 read_creds()
 login()
 time.sleep(2)
 stats()
 time.sleep(2)
-search("kittens")
+l1 = search("kittens")   # returns list of user profiles that posted a search
+print(l1)
+for i in l1:
+    time.sleep(2)
+    l2 = get_user_followers(i)   # returns list of user profiles that followed this one person
 
+#total everything together from both previous functions and pass to follow()
 
 
 time.sleep(1000)
